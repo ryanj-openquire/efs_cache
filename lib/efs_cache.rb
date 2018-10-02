@@ -3,6 +3,7 @@ require 'efs_cache/manager'
 require 'yaml'
 require 'fileutils'
 require 'logger'
+require 'securerandom'
 
 module EfsCache
 
