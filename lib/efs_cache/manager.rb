@@ -10,6 +10,8 @@ module EfsCache
       key_name = File.basename(key)
       key_path = File.dirname(key)
 
+      timestamp = SecureRandom.hex(8) if timestamp.blank?
+
       dir_path = File.join(@service.mount_point, bucket, key_path, timestamp)
       file_path = File.join(dir_path, key_name)
 
@@ -33,6 +35,11 @@ module EfsCache
         yield file_path if block_given?
       end
       file_path
+    end
+
+    protected
+
+    def _download_file(bucket, key, output_file)
     end
 
   end
