@@ -2,6 +2,7 @@ require "efs_cache/version"
 require 'efs_cache/manager'
 require 'yaml'
 require 'fileutils'
+require 'logger'
 
 module EfsCache
 
@@ -12,10 +13,28 @@ module EfsCache
 
       self._configure_from_file
       yield self if block_given?
+
+      raise ArgumentError, 'No mount point specified' unless @settings['mount_point']
+    end
+
+    def logger
+      @logger ||= Logger.new(STDOUT)
+    end
+
+    def logger=(new_logger)
+      @logger = new_logger
     end
 
     def manager
-      @manager ||= EfsCache::Manager.new(@settings)
+      @manager ||= EfsCache::Manager.new(self)
+    end
+
+    def mount_point
+      @settings['mount_point']
+    end
+
+    def mount_point=(new_mount_point)
+      @settings['mount_point'] = new_mount_point
     end
 
     protected
