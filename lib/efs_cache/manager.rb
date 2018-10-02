@@ -14,6 +14,7 @@ module EfsCache
       file_path = File.join(dir_path, key_name)
 
       if !File.exists?(file_path)
+        @service.logger.info "cache:miss=#{file_path}"
         FileUtils.mkdir_p(dir_path)
 
         client = Aws::S3::Client.new
