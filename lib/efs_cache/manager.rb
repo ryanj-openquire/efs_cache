@@ -12,7 +12,7 @@ module EfsCache
 
       timestamp = SecureRandom.hex(8) if timestamp.blank?
 
-      dir_path = File.join(@service.mount_point, bucket, key_path, timestamp)
+      dir_path = File.join(@service.mount_point, bucket, key_path, timestamp.to_s)
       file_path = File.join(dir_path, key_name)
 
       if !File.exists?(file_path)
