@@ -20,7 +20,7 @@ module EfsCache
       if !Dir.exist?(self.mount_point)
         FileUtils.mkdir_p(self.mount_point)
         dir_owner = self.mount_owner
-        FileUtils.chown(dir_owner, dir_ownerself.mount_point) unless dir_owner.blank?
+        FileUtils.chown(dir_owner, dir_owner, self.mount_point) unless dir_owner.blank?
       end
     end
 
