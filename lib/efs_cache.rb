@@ -16,6 +16,7 @@ module EfsCache
       yield self if block_given?
 
       raise ArgumentError, 'No mount point specified' unless @settings['mount_point']
+      FileUtils.mkdir_p(self.mount_point)
     end
 
     def logger
