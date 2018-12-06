@@ -17,11 +17,9 @@ module EfsCache
 
       raise ArgumentError, 'No mount point specified' unless @settings['mount_point']
 
-      if !Dir.exist?(self.mount_point)
-        FileUtils.mkdir_p(self.mount_point)
-        dir_owner = self.mount_owner
-        FileUtils.chown(dir_owner, dir_ownerself.mount_point) unless dir_owner.blank?
-      end
+      FileUtils.mkdir_p(self.mount_point)
+      dir_owner = self.mount_owner
+      FileUtils.chown(dir_owner, dir_owner, self.mount_point) unless dir_owner.blank?
     end
 
     def logger
