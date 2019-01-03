@@ -31,7 +31,10 @@ module EfsCache
     end
 
     def manager
-      @manager ||= EfsCache::Manager.new(self)
+      @manager ||= begin
+        raise(ArgumentError, 'EfsCache has not been configured') unless @settings['mount_point']
+        EfsCache::Manager.new(self)
+      end
     end
 
     def mount_point
@@ -53,7 +56,12 @@ module EfsCache
     protected
 
     def _configure_from_file
-      @settings = YAML.load_file(Rails.root.join('config', 'efs_cache.yml'))
+      config_file = File.join(Rails.root, 'config', 'efs_cache.yml')
+      @settings = if File.exists?(config_file)
+        YAML.load_file(config_file)
+      else
+        {}
+      end
     end
 
   end
