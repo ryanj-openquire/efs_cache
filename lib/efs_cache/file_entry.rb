@@ -13,6 +13,7 @@ module EfsCache
       end
       @lifetime = lifetime
       @cache_miss = false
+      @present = false
     end
 
     def absolute_path
@@ -38,13 +39,18 @@ module EfsCache
             key: @key,
             response_target: self.absolute_path
           )
-        rescue Aws::S3::Errors::NoSuchKey
+        rescue Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::AccessDenied
           return
         rescue StandardError => se
           @service.logger.error "** ERROR FETCHING: #{bucket}:#{key} (#{se.message})"
           return
         end
       end
+      @present = true
+    end
+
+    def present?
+      @present
     end
 
     def relative_path
