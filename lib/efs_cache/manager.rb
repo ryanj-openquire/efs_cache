@@ -4,6 +4,7 @@ module EfsCache
 
     LIFETIMES = {
       DAILY: 'daily',
+      TWO_WEEKS: '2weeks',
       MONTHLY: 'monthly',
       WEEKLY: 'weekly'
     }
