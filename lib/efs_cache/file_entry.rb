@@ -30,7 +30,7 @@ module EfsCache
       if !File.exists?(self.absolute_path)
         @cache_miss = true
         @service.logger.info "cache:miss=#{self.absolute_path}"
-        FileUtils.mkdir_p(self.base_path)
+        FileUtils.mkdir_p(File.join(@service.mount_point, self.base_path))
 
         client = Aws::S3::Client.new
         begin

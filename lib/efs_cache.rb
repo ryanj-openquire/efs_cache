@@ -1,5 +1,6 @@
-require "efs_cache/version"
+require 'efs_cache/version'
 require 'efs_cache/manager'
+require 'efs_cache/file_entry'
 require 'yaml'
 require 'fileutils'
 require 'logger'
